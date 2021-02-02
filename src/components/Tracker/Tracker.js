@@ -28,6 +28,7 @@ const Tracker = () => {
     return calculateTotal();
   }, [transactions]);
 
+  // calculation functions
   function calculateIncome(data) {
     const income = data
       .filter((d) => d.amount > 0)
