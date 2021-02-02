@@ -17,20 +17,22 @@ const FormInput = ({
 
   return (
     <div>
-      <h2>Add New Transactions</h2>
+      <h3>Add New Transactions</h3>
       <form onSubmit={addTransaction}>
         <input
           ref={inputRef}
           type="text"
           value={text}
           onChange={handleTransactionType}
-          className={error && `error`}
+          className={error ? `error` : null}
+          placeholder="Transaction type"
         />
         <input
           type="number"
           value={amount}
           onChange={handleTransactionAmount}
-          className={error && `error`}
+          className={error ? `error` : null}
+          placeholder="Amount (negative - expense, positive -income)"
         />
         <button>Add transaction</button>
       </form>

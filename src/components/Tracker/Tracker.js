@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from "react";
+import TotalBalance from "../TotalBalance/TotalBalance";
 import ExpensesAndIncome from "../ExpensesAndIncome/ExpensesAndIncome";
 import FormInput from "../FormInput/FormInput";
 import History from "../History/History";
-import TrackerHeader from "../TrackerHeader/TrackerHeader";
-import Transactions from "../Transactions/Transactions";
+
 import "./Tracker.css";
 
 const Tracker = () => {
@@ -15,7 +15,7 @@ const Tracker = () => {
   // add transaction
   const addTransaction = (e) => {
     e.preventDefault();
-    if (!text || !amount) {
+    if (!text || amount === null) {
       setError(true);
       return;
     }
@@ -31,7 +31,7 @@ const Tracker = () => {
     setTransaction(transactions.filter((transaction) => transaction.id !== id));
   };
 
-  // income, expenses and total
+  // income, expenses and total with useMemo
   const income = useMemo(() => {
     return calculateIncome(transactions);
   }, [transactions]);
@@ -41,15 +41,15 @@ const Tracker = () => {
   }, [transactions]);
 
   const totalBalance = useMemo(() => {
-    return calculateTotal();
-  }, [transactions]);
+    console.log("memo");
+    return calculateTotal(income, expenses);
+  }, [income, expenses]);
 
   // calculation functions
   function calculateIncome(data) {
     const income = data
       .filter((d) => d.amount > 0)
       .reduce((acc, item) => acc + item.amount, 0);
-    console.log(income);
     return income;
   }
 
@@ -57,18 +57,19 @@ const Tracker = () => {
     const expenses = data
       .filter((d) => d.amount <= 0)
       .reduce((acc, item) => acc + item.amount, 0);
-    console.log(expenses);
     return expenses;
   }
 
-  function calculateTotal() {
+  function calculateTotal(income, expenses) {
     return income + expenses;
   }
 
   return (
-    <div>
-      <TrackerHeader balance={totalBalance} />
+    <div className="tracker">
+      <TotalBalance balance={totalBalance} />
+
       <ExpensesAndIncome income={income} expenses={expenses} />
+
       <ul>
         {transactions.map((transaction) => (
           <History
@@ -78,6 +79,7 @@ const Tracker = () => {
           />
         ))}
       </ul>
+
       <FormInput
         addTransaction={addTransaction}
         handleTransactionType={(e) => setText(e.target.value)}

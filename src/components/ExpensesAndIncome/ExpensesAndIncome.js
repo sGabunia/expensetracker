@@ -1,20 +1,20 @@
 import React from "react";
 import "./ExpensesAndIncome.css";
 
-const ExpensesIncome = ({ text, amount }) => {
+const ExpensesIncome = ({ text, amount, borderRadius }) => {
   return (
-    <div>
-      <p>{text}</p>
-      <p>{amount}</p>
+    <div className={`spent-earned ${borderRadius}`}>
+      <p> {text}</p>
+      <p>$ {amount}</p>
     </div>
   );
 };
 
 const ExpensesAndIncome = ({ income, expenses }) => {
   return (
-    <div style={{ display: "flex", gap: "2rem" }}>
-      <ExpensesIncome text="Spent" amount={income} />
-      <ExpensesIncome text="Earned" amount={expenses} />
+    <div className="exp-income">
+      <ExpensesIncome text="Spent" amount={income} borderRadius="spent" />
+      <ExpensesIncome text="Earned" amount={expenses} borderRadius="earned" />
     </div>
   );
 };
