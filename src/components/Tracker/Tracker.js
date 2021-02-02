@@ -1,4 +1,5 @@
 import React from "react";
+import ExpensesAndIncome from "../ExpensesAndIncome/ExpensesAndIncome";
 import "./Tracker.css";
 
 const Tracker = () => {
@@ -6,6 +7,7 @@ const Tracker = () => {
     <div>
       <h2 style={{ color: "red" }}>Tolal Balance</h2>
       <span>$0.00$</span>
+      <ExpensesAndIncome />
     </div>
   );
 };
