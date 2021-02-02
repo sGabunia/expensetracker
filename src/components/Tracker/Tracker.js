@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from "react";
 import ExpensesAndIncome from "../ExpensesAndIncome/ExpensesAndIncome";
+import FormInput from "../FormInput/FormInput";
 import History from "../History/History";
+import TrackerHeader from "../TrackerHeader/TrackerHeader";
 import Transactions from "../Transactions/Transactions";
 import "./Tracker.css";
 
@@ -10,6 +12,7 @@ const Tracker = () => {
   const [amount, setAmount] = useState("");
   const [error, setError] = useState(false);
 
+  // add transaction
   const addTransaction = (e) => {
     e.preventDefault();
     if (!text || !amount) {
@@ -23,6 +26,12 @@ const Tracker = () => {
     setAmount("");
   };
 
+  // remove transaction
+  const removeTransaction = (id) => {
+    setTransaction(transactions.filter((transaction) => transaction.id !== id));
+  };
+
+  // income, expenses and total
   const income = useMemo(() => {
     return calculateIncome(transactions);
   }, [transactions]);
@@ -56,14 +65,9 @@ const Tracker = () => {
     return income + expenses;
   }
 
-  const removeTransaction = (id) => {
-    setTransaction(transactions.filter((transaction) => transaction.id !== id));
-  };
-
   return (
     <div>
-      <h2>Tolal Balance</h2>
-      <span>{totalBalance}</span>
+      <TrackerHeader balance={totalBalance} />
       <ExpensesAndIncome income={income} expenses={expenses} />
       <ul>
         {transactions.map((transaction) => (
@@ -74,22 +78,15 @@ const Tracker = () => {
           />
         ))}
       </ul>
-      <h2>Add New Transactions</h2>
-      <form onSubmit={addTransaction}>
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          className={error && `error`}
-        />
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
-          className={error && `error`}
-        />
-        <button>Add transaction</button>
-      </form>
+      <FormInput
+        addTransaction={addTransaction}
+        handleTransactionType={(e) => setText(e.target.value)}
+        handleTransactionAmount={(e) => setAmount(Number(e.target.value))}
+        text={text}
+        amount={amount}
+        error={error}
+        balance={totalBalance}
+      />
     </div>
   );
 };
