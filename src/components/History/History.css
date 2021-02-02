@@ -3,13 +3,30 @@ ul {
   padding: 0;
 }
 
-li {
-  display: flex;
-  gap: 3rem;
+.transaction {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  background-color: rgb(148, 147, 147);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 0.8rem;
 }
 
-li div {
+.transaction div {
   display: flex;
   gap: 2rem;
+}
+
+.transaction > p {
+  flex: 1;
+  font-size: 1.3rem;
+}
+.remove {
+  display: block;
+  max-width: 100%;
+  width: 2rem;
+  cursor: pointer;
 }
