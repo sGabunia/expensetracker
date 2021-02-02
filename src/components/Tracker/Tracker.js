@@ -15,15 +15,16 @@ const Tracker = () => {
   // add transaction
   const addTransaction = (e) => {
     e.preventDefault();
-    if (!text || amount === null) {
+    console.log(e.target[0].value);
+    if (!text || !amount) {
       setError(true);
       return;
     }
     const newTransaction = { id: Date.now(), type: text, amount };
     setTransaction((prevState) => [...prevState, newTransaction]);
     setError(false);
-    setText("");
-    setAmount("");
+    e.target[0].value = "";
+    e.target[1].value = "";
   };
 
   // remove transaction
@@ -84,8 +85,6 @@ const Tracker = () => {
         addTransaction={addTransaction}
         handleTransactionType={(e) => setText(e.target.value)}
         handleTransactionAmount={(e) => setAmount(Number(e.target.value))}
-        text={text}
-        amount={amount}
         error={error}
         balance={totalBalance}
       />

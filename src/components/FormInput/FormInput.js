@@ -6,8 +6,6 @@ const FormInput = ({
   handleTransactionAmount,
   addTransaction,
   error,
-  text,
-  amount,
   balance,
 }) => {
   const inputRef = useRef(null);
@@ -22,17 +20,17 @@ const FormInput = ({
         <input
           ref={inputRef}
           type="text"
-          value={text}
           onChange={handleTransactionType}
           className={error ? `error` : null}
           placeholder="Transaction type"
+          maxLength="25"
         />
         <input
           type="number"
-          value={amount}
           onChange={handleTransactionAmount}
           className={error ? `error` : null}
           placeholder="Amount (negative - expense, positive -income)"
+          maxLength="10"
         />
         <button>Add transaction</button>
       </form>
