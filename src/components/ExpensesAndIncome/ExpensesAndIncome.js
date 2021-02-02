@@ -13,8 +13,8 @@ const ExpensesIncome = ({ text, amount, borderRadius }) => {
 const ExpensesAndIncome = ({ income, expenses }) => {
   return (
     <div className="exp-income">
-      <ExpensesIncome text="Earned" amount={expenses} borderRadius="earned" />
-      <ExpensesIncome text="Spent" amount={income} borderRadius="spent" />
+      <ExpensesIncome text="Earned" amount={income} borderRadius="earned" />
+      <ExpensesIncome text="Spent" amount={expenses} borderRadius="spent" />
     </div>
   );
 };
